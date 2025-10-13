@@ -1,0 +1,12 @@
+#file: noinspection undefined
+server:
+  port: 7072
+  servlet:
+    context-path: /profile
+
+spring:
+  neo4j:
+    uri: ${NEO4J_URI}
+    authentication:
+      username: ${NEO4J_USERNAME}
+      password: ${NEO4J_PASSWORD}

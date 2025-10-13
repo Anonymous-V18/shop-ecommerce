@@ -1,0 +1,28 @@
+#file: noinspection undefined
+server:
+  port: 7071
+  servlet:
+    context-path: /identity
+
+spring:
+  datasource:
+    url: jdbc:mysql://${DBMS_HOST}:${DBMS_PORT}/identity-service
+    username: ${DBMS_USERNAME}
+    password: ${DBMS_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS_HOST}:${KAFKA_BOOTSTRAP_SERVERS_PORT}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+jwt:
+  SECRET_KEY: ${JWT_SECRET_KEY}
+  VALID_DURATION: 20 # in seconds
+  REFRESHABLE_DURATION: 120 # in seconds
+
+app:
+  services:
+    profile: ${PROFILE_SERVICE_URL}

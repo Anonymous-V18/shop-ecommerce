@@ -1,0 +1,14 @@
+#file: noinspection undefined
+server:
+  port: 7074
+  servlet:
+    context-path: /address
+
+spring:
+  datasource:
+    url: jdbc:mysql://${DBMS_HOST}:${DBMS_PORT}/address-service
+    username: ${DBMS_USERNAME}
+    password: ${DBMS_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
