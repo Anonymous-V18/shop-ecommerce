@@ -1,6 +1,6 @@
 package com.anonymousv18.profile.controller;
 
-import com.anonymousv18.profile.dto.request.UserProfileCreationRequest;
+import com.anonymousv18.profile.dto.request.UserProfileRequest;
 import com.anonymousv18.profile.dto.response.UserProfileResponse;
 import com.anonymousv18.profile.service.IUserProfileService;
 import lombok.AccessLevel;
@@ -17,11 +17,11 @@ public class InternalUserProfileController {
 
     IUserProfileService userProfileService;
 
-    @PostMapping("/user/{userId}/profile/insert")
-    public UserProfileResponse createUserProfile(
+    @PostMapping("/users/{userId}/profiles/insert")
+    public UserProfileResponse insert(
             @PathVariable(name = "userId") String userId,
-            @RequestBody UserProfileCreationRequest request) {
-        return userProfileService.createUserProfile(userId, request);
+            @RequestBody UserProfileRequest request) {
+        return userProfileService.insert(userId, request);
     }
 
 }

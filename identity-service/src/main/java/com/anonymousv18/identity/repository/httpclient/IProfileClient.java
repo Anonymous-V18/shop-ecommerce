@@ -1,7 +1,7 @@
 package com.anonymousv18.identity.repository.httpclient;
 
 import com.anonymousv18.identity.configuration.AuthenticationRequestInterceptor;
-import com.anonymousv18.identity.dto.request.ProfileCreationRequest;
+import com.anonymousv18.identity.dto.request.UserProfileRequest;
 import com.anonymousv18.identity.dto.response.UserProfileResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
         configuration = {AuthenticationRequestInterceptor.class})
 public interface IProfileClient {
 
-    @PostMapping(value = "/internal/user/{userId}/profile/insert", produces = MediaType.APPLICATION_JSON_VALUE)
-    UserProfileResponse createProfile(
+    @PostMapping(value = "/internal/users/{userId}/profiles/insert", produces = MediaType.APPLICATION_JSON_VALUE)
+    UserProfileResponse insert(
             @PathVariable(name = "userId") String userId,
-            @RequestBody ProfileCreationRequest request
+            @RequestBody UserProfileRequest request
     );
 
 }

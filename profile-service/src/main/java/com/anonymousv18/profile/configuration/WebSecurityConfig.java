@@ -18,7 +18,7 @@ public class WebSecurityConfig {
 
     private static final String[] PUBLIC_ENDPOINT = {
             "/internal/**",
-            "/users"
+            "/users/**"
     };
 
 
@@ -27,7 +27,6 @@ public class WebSecurityConfig {
     public WebSecurityConfig(CustomJwtDecoder customJwtDecoder) {
         this.customJwtDecoder = customJwtDecoder;
     }
-
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {

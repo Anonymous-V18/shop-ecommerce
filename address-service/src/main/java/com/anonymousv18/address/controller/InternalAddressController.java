@@ -18,7 +18,7 @@ public class InternalAddressController {
 
     IAddressService addressService;
 
-    @PostMapping("/insert")
+    @PostMapping("/address/insert")
     public ApiResponse<AddressResponse> insert(@RequestBody AddressRequest addressRequest) {
         AddressResponse response = addressService.insert(addressRequest);
         return ApiResponse.<AddressResponse>builder()
@@ -26,7 +26,7 @@ public class InternalAddressController {
                 .build();
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/address/update/{id}")
     public ApiResponse<AddressResponse> update(
             @PathVariable(name = "id") String id,
             @RequestBody AddressRequest addressRequest) {
@@ -36,7 +36,7 @@ public class InternalAddressController {
                 .build();
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/address/delete/{id}")
     public ApiResponse<String> delete(@PathVariable(name = "id") String id) {
         addressService.delete(id);
         return ApiResponse.<String>builder()
@@ -44,7 +44,7 @@ public class InternalAddressController {
                 .build();
     }
 
-    @GetMapping("/find-one")
+    @GetMapping("/address/find-one")
     public ApiResponse<AddressResponse> findById(@RequestParam("id") String id) {
         AddressResponse response = addressService.findById(id);
         return ApiResponse.<AddressResponse>builder()

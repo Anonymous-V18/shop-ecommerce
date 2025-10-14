@@ -19,7 +19,7 @@ public class SignupRequest {
     String username;
     @PasswordConstraint(min = 8, message = "PASSWORD_INVALID")
     String password;
-    String role;
+    String roleCode;
     String email;
     String firstName;
     String lastName;

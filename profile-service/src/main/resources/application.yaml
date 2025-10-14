@@ -10,3 +10,7 @@ spring:
     authentication:
       username: ${NEO4J_USERNAME}
       password: ${NEO4J_PASSWORD}
+
+app:
+  services:
+    address: ${ADDRESS_SERVICE_URL}

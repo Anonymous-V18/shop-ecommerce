@@ -40,8 +40,8 @@ public class UserController {
                 .build();
     }
 
-    private ApiResponse<UserDTO> create(SignupRequest signupRequest, String role) {
-        signupRequest.setRole(role);
+    private ApiResponse<UserDTO> create(SignupRequest signupRequest, String roleCode) {
+        signupRequest.setRoleCode(roleCode);
         UserDTO userDTO = userService.createUser(signupRequest);
         return ApiResponse.<UserDTO>builder().result(userDTO).build();
     }

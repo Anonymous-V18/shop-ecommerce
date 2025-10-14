@@ -1,6 +1,7 @@
 package com.anonymousv18.gateway.configuration;
 
 import com.anonymousv18.gateway.repository.IIdentityClient;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
@@ -15,10 +16,13 @@ import java.util.List;
 @Configuration
 public class WebClientConfiguration {
 
+    @Value("${IDENTITY_SERVICE_URI}")
+    private String identityURI;
+
     @Bean
     public WebClient webClient() {
         return WebClient.builder()
-                .baseUrl("http://localhost:7071/identity")
+                .baseUrl(identityURI + "/identity")
                 .build();
     }
 

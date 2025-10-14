@@ -1,5 +1,7 @@
 package com.anonymousv18.profile.controller;
 
+import com.anonymousv18.profile.dto.request.UserProfileRequest;
+import com.anonymousv18.profile.dto.response.ApiResponse;
 import com.anonymousv18.profile.dto.response.UserProfileResponse;
 import com.anonymousv18.profile.service.IUserProfileService;
 import lombok.AccessLevel;
@@ -19,15 +21,30 @@ public class UserProfileController {
 
     IUserProfileService userProfileService;
 
-    @GetMapping("/{profileId}")
-    @PreAuthorize("hasAnyAuthority('CREATE_POSTS','UPDATE_POSTS')")
-    public UserProfileResponse getUserProfile(@PathVariable("profileId") String profileId) {
-        return userProfileService.findUserProfile(profileId);
+    @PutMapping("/profiles/update/{id}")
+    public ApiResponse<UserProfileResponse> updateUserProfile(@PathVariable("id") String id,
+                                                              @RequestBody UserProfileRequest userProfileRequest) {
+        UserProfileResponse response = userProfileService.update(id, userProfileRequest);
+        return ApiResponse.<UserProfileResponse>builder()
+                .result(response)
+                .build();
     }
 
-    @GetMapping("/showAll")
-    @PreAuthorize("hasRole('ADMIN')")
-    public List<UserProfileResponse> getAllUserProfiles() {
-        return userProfileService.getAllUserProfile();
+    @GetMapping("/profiles/get")
+    public ApiResponse<UserProfileResponse> getUserProfile(@RequestParam("id") String id) {
+        UserProfileResponse response = userProfileService.findById(id);
+        return ApiResponse.<UserProfileResponse>builder()
+                .result(response)
+                .build();
     }
+
+    @GetMapping("/profiles/get-all")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ApiResponse<List<UserProfileResponse>> getAllUserProfiles() {
+        List<UserProfileResponse> response = userProfileService.getAll();
+        return ApiResponse.<List<UserProfileResponse>>builder()
+                .result(response)
+                .build();
+    }
+
 }

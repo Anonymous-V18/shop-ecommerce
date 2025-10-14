@@ -1,16 +1,18 @@
 package com.anonymousv18.profile.service;
 
-import com.anonymousv18.profile.dto.request.UserProfileCreationRequest;
+import com.anonymousv18.profile.dto.request.UserProfileRequest;
 import com.anonymousv18.profile.dto.response.UserProfileResponse;
 
 import java.util.List;
 
 public interface IUserProfileService {
 
-    UserProfileResponse createUserProfile(String userId, UserProfileCreationRequest userProfileCreationRequest);
+    UserProfileResponse insert(String userId, UserProfileRequest userProfileRequest);
 
-    List<UserProfileResponse> getAllUserProfile();
+    UserProfileResponse update(String id, UserProfileRequest userProfileRequest);
 
-    UserProfileResponse findUserProfile(String profileId);
+    List<UserProfileResponse> getAll();
+
+    UserProfileResponse findById(String id);
 
 }

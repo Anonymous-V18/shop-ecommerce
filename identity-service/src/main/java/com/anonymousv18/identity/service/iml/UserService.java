@@ -2,8 +2,8 @@ package com.anonymousv18.identity.service.iml;
 
 import com.anonymousv18.event.dto.NotificationEvent;
 import com.anonymousv18.identity.dto.UserDTO;
-import com.anonymousv18.identity.dto.request.ProfileCreationRequest;
 import com.anonymousv18.identity.dto.request.SignupRequest;
+import com.anonymousv18.identity.dto.request.UserProfileRequest;
 import com.anonymousv18.identity.entity.RoleEntity;
 import com.anonymousv18.identity.entity.UserEntity;
 import com.anonymousv18.identity.exception.AppException;
@@ -48,15 +48,15 @@ public class UserService implements IUserService {
         UserEntity userEntity = userMapper.toEntity(signupRequest);
         userEntity.setPassword(passwordEncoder.encode(signupRequest.getPassword()));
 
-        RoleEntity roles = roleRepository.findOneByCode(signupRequest.getRole());
+        RoleEntity roles = roleRepository.findOneByCode(signupRequest.getRoleCode());
         userEntity.setRoles(Set.of(roles));
 
         userEntity = userRepository.save(userEntity);
 
-        ProfileCreationRequest profileCreationRequest =
+        UserProfileRequest userProfileRequest =
                 profileMapper.toProfileCreationRequest(signupRequest);
 
-        profileClient.createProfile(userEntity.getId(), profileCreationRequest);
+        profileClient.insert(userEntity.getId(), userProfileRequest);
 
         NotificationEvent notificationEvent = NotificationEvent.builder()
                 .channel("MAIL")

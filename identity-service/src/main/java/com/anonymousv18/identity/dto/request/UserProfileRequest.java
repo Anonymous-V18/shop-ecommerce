@@ -1,4 +1,4 @@
-package com.anonymousv18.profile.dto.request;
+package com.anonymousv18.identity.dto.request;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class UserProfileCreationRequest {
+public class UserProfileRequest {
 
     String firstName;
     String lastName;
