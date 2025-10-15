@@ -34,7 +34,11 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
     ObjectMapper objectMapper;
 
     @NonFinal
-    private final String[] PUBLIC_ENDPOINTS = {"/identity/auth/.*", "/identity/users/register"};
+    final String[] PUBLIC_ENDPOINTS = {
+            "/identity/auth/.*", "/identity/users/register",
+            "/identity/roles/get-all", "/identity/permissions/get-all",
+            "/address/wards/get-all", "/address/provinces/get-all", "/address/districts/get-all"
+    };
 
     @Value("${app.api-prefix}")
     @NonFinal

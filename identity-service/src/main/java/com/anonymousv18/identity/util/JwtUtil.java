@@ -9,7 +9,10 @@ import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
+import lombok.experimental.NonFinal;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -22,30 +25,32 @@ import java.util.StringJoiner;
 import java.util.UUID;
 
 @Component
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class JwtUtil {
 
-    @Value("${jwt.SECRET_KEY}")
-    private String secretKey;
-
-    @Value("${jwt.VALID_DURATION}")
-    private long validDuration;
-
+    IInvalidatedTokenRepository invalidatedTokenRepository;
+    @NonFinal
     @Value("${jwt.REFRESHABLE_DURATION}")
-    private long refreshableDuration;
-
-    @Autowired
-    private IInvalidatedTokenRepository invalidatedTokenRepository;
+    long refreshableDuration;
+    @NonFinal
+    @Value("${jwt.VALID_DURATION}")
+    long validDuration;
+    @NonFinal
+    @Value("${jwt.SECRET_KEY}")
+    String secretKey;
 
     public String generateToken(UserEntity userEntity) {
         JWSHeader header = new JWSHeader(JWSAlgorithm.HS512);
 
         JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
                 .subject(userEntity.getUsername())
-                .issuer("anonymous_v18.com")
+                .issuer("lemarchenoble.id.vn")
                 .issueTime(new Date())
                 .expirationTime(new Date(Instant.now().plus(validDuration, ChronoUnit.SECONDS).toEpochMilli()))
                 .jwtID(UUID.randomUUID().toString())
                 .claim("scope", buildScope(userEntity))
+                .claim("userId", userEntity.getId())
                 .build();
 
         Payload payload = jwtClaimsSet.toPayload();
@@ -55,8 +60,8 @@ public class JwtUtil {
         try {
             jwsObject.sign(new MACSigner(secretKey.getBytes()));
             return jwsObject.serialize();
-        } catch (JOSEException e) {
-            throw new RuntimeException(e);
+        } catch (JOSEException _) {
+            throw new AppException(ErrorCode.CAN_NOT_GENERATE_TOKEN);
         }
     }
 

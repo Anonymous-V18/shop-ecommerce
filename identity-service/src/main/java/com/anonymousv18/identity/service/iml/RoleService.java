@@ -32,6 +32,10 @@ public class RoleService implements IRoleService {
     public RoleDTO insert(RoleRequest request) {
         RoleEntity roleEntity = roleMapper.toEntity(request);
 
+        boolean existsByCode = roleRepository.existsByCode(request.getCode());
+        if (existsByCode) {
+            throw new AppException(ErrorCode.ROLE_EXIST);
+        }
         List<PermissionEntity> permissions = permissionRepository.findAllById(request.getPermissionNameList());
         if (permissions.contains(null)) {
             throw new AppException(ErrorCode.PERMISSION_NOT_FOUND);

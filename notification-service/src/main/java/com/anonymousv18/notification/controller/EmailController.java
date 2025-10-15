@@ -7,7 +7,6 @@ import com.anonymousv18.notification.service.IEmailService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +21,6 @@ public class EmailController {
     IEmailService emailService;
 
     @PostMapping("/send")
-    @PreAuthorize("hasAuthority('CREATE_POSTS')")
     public ApiResponse<EmailResponse> send(@RequestBody SendEmailRequest request) {
         EmailResponse emailResponse = emailService.sendEmail(request);
         return ApiResponse.<EmailResponse>builder()

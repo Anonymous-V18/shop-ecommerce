@@ -22,8 +22,6 @@ public class WebSecurityConfig {
             "/auth/**", "/roles/**", "/users/**", "/admin/**", "/permissions/**",
             "/register", "/login", "/introspect", "/logout", "/refresh"
     };
-
-
     private final CustomJwtDecoder customJwtDecoder;
 
     public WebSecurityConfig(CustomJwtDecoder customJwtDecoder) {

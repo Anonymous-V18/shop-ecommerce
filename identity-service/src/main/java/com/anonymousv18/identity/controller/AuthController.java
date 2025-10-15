@@ -9,7 +9,6 @@ import com.anonymousv18.identity.dto.response.IntrospectResponse;
 import com.anonymousv18.identity.dto.response.LoginResponse;
 import com.anonymousv18.identity.dto.response.RefreshResponse;
 import com.anonymousv18.identity.service.IAuthService;
-import com.anonymousv18.identity.util.JwtUtil;
 import com.nimbusds.jose.JOSEException;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +25,6 @@ import java.text.ParseException;
 public class AuthController {
 
     IAuthService authService;
-    JwtUtil jwtUtil;
 
     @PostMapping("/login")
     public ApiResponse<LoginResponse> createAuthenticationToken(@RequestBody LoginRequest request) {
@@ -39,7 +37,7 @@ public class AuthController {
     public ApiResponse<String> logout(@RequestBody LogoutRequest request) throws ParseException, JOSEException {
         String token = request.getToken();
         authService.logout(token);
-        return ApiResponse.<String>builder().message("Đăng xuất thành công !").build();
+        return ApiResponse.<String>builder().message("Logout successfully !").build();
     }
 
     @PostMapping("/refresh")

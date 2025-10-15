@@ -43,7 +43,7 @@ public class EmailService implements IEmailService {
 
         try {
             return emailClient.sendEmail(apiKey, emailRequest);
-        } catch (FeignException e) {
+        } catch (FeignException _) {
             throw new AppException(ErrorCode.CANNOT_SEND_EMAIL);
         }
     }

@@ -11,7 +11,6 @@ import lombok.experimental.FieldDefaults;
 public class UserProfileSubResponse {
 
     String id;
-    UserProfileResponse userProfile;
     String name;
     String phoneNumber;
     AddressResponse address;

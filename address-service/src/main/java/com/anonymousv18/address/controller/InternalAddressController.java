@@ -44,7 +44,7 @@ public class InternalAddressController {
                 .build();
     }
 
-    @GetMapping("/address/find-one")
+    @GetMapping("/address/get")
     public ApiResponse<AddressResponse> findById(@RequestParam("id") String id) {
         AddressResponse response = addressService.findById(id);
         return ApiResponse.<AddressResponse>builder()

@@ -31,8 +31,7 @@ public class AddressEntity {
     String modifiedBy;
     @LastModifiedDate
     Date modifiedDate;
-
-    @Column(name = "other", nullable = false, unique = true, columnDefinition = "VARCHAR(255) COLLATE utf8mb4_unicode_ci")
+    
     String other;
 
     @ManyToOne

@@ -47,8 +47,8 @@ public class UserProfileSubController {
     }
 
     @GetMapping("/profile-subs/get")
-    public ApiResponse<List<UserProfileSubResponse>> findByUserProfileId(@RequestParam(name = "id") String id) {
-        List<UserProfileSubResponse> response = userProfileSubService.findByUserProfile_Id(id);
+    public ApiResponse<List<UserProfileSubResponse>> findByUserProfileId(@RequestParam(name = "userProfileId") String userProfileId) {
+        List<UserProfileSubResponse> response = userProfileSubService.findByUserProfile_Id(userProfileId);
         return ApiResponse.<List<UserProfileSubResponse>>builder()
                 .result(response)
                 .build();

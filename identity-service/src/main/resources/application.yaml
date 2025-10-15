@@ -21,8 +21,8 @@ spring:
 
 jwt:
   SECRET_KEY: ${JWT_SECRET_KEY}
-  VALID_DURATION: 20 # in seconds
-  REFRESHABLE_DURATION: 120 # in seconds
+  VALID_DURATION: 3600 # in seconds
+  REFRESHABLE_DURATION: 86400 # in seconds
 
 app:
   services:

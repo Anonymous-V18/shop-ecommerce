@@ -10,28 +10,30 @@ spring:
     name: api-gateway
   cloud:
     gateway:
-      routes:
-        - id: identity_service
-          uri: ${IDENTITY_SERVICE_URI}
-          predicates:
-            - Path=${app.api-prefix}/identity/**
-          filters:
-            - StripPrefix=2
-        - id: profile_service
-          uri: ${PROFILE_SERVICE_URI}
-          predicates:
-            - Path=${app.api-prefix}/profile/users/**
-          filters:
-            - StripPrefix=2
-        - id: notification_service
-          uri: ${NOTIFICATION_SERVICE_URI}
-          predicates:
-            - Path=${app.api-prefix}/notification/**
-          filters:
-            - StripPrefix=2
-        - id: address_service
-          uri: ${ADDRESS_SERVICE_URI}
-          predicates:
-            - Path=${app.api-prefix}/address/**
-          filters:
-            - StripPrefix=2
+      server:
+        webflux:
+          routes:
+            - id: identity_service
+              uri: ${IDENTITY_SERVICE_URI}
+              predicates:
+                - Path=${app.api-prefix}/identity/**
+              filters:
+                - StripPrefix=2
+            - id: profile_service
+              uri: ${PROFILE_SERVICE_URI}
+              predicates:
+                - Path=${app.api-prefix}/profile/users/**
+              filters:
+                - StripPrefix=2
+            - id: notification_service
+              uri: ${NOTIFICATION_SERVICE_URI}
+              predicates:
+                - Path=${app.api-prefix}/notification/**
+              filters:
+                - StripPrefix=2
+            - id: address_service
+              uri: ${ADDRESS_SERVICE_URI}
+              predicates:
+                - Path=${app.api-prefix}/address/**
+              filters:
+                - StripPrefix=2

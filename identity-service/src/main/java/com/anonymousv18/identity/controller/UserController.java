@@ -24,27 +24,16 @@ public class UserController {
 
     @PostMapping("/register")
     public ApiResponse<UserDTO> createAccountUser(@Valid @RequestBody SignupRequest signupRequest) {
-        return this.create(signupRequest, "USER");
+        UserDTO userDTO = userService.createUser(signupRequest);
+        return ApiResponse.<UserDTO>builder().result(userDTO).build();
     }
 
-    @PostMapping("/register-admin")
-    public ApiResponse<UserDTO> createAccountAdmin(@Valid @RequestBody SignupRequest signupRequest) {
-        return this.create(signupRequest, "ADMIN");
-    }
-
-    @GetMapping("/showAllUsers")
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','CREATE_POSTS')")
+    @GetMapping("/get-all")
+    @PreAuthorize("hasRole('ADMIN')")
     public ApiResponse<List<UserDTO>> showAllUsers() {
         return ApiResponse.<List<UserDTO>>builder()
                 .result(userService.showAllUsers())
                 .build();
     }
-
-    private ApiResponse<UserDTO> create(SignupRequest signupRequest, String roleCode) {
-        signupRequest.setRoleCode(roleCode);
-        UserDTO userDTO = userService.createUser(signupRequest);
-        return ApiResponse.<UserDTO>builder().result(userDTO).build();
-    }
-
 
 }

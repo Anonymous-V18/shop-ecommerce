@@ -4,6 +4,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -12,8 +13,13 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class RoleDTO extends BaseDTO {
+public class RoleDTO {
 
+    String id;
+    String createdBy;
+    Date createdDate;
+    String modifiedBy;
+    Date modifiedDate;
     String name;
     String code;
 

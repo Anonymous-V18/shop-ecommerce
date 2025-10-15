@@ -44,7 +44,6 @@ public class UserProfileSubService implements IUserProfileSubService {
         userProfileSubEntity = userProfileSubRepository.save(userProfileSubEntity);
         return UserProfileSubResponse.builder()
                 .id(userProfileSubEntity.getId())
-                .userProfile(userProfileMapper.toUserProfileResponse(userProfileEntity))
                 .name(userProfileSubEntity.getName())
                 .phoneNumber(userProfileSubEntity.getPhoneNumber())
                 .address(addressResponse.getResult())
@@ -65,7 +64,6 @@ public class UserProfileSubService implements IUserProfileSubService {
         userProfileSubEntity = userProfileSubRepository.save(userProfileSubEntity);
         return UserProfileSubResponse.builder()
                 .id(userProfileSubEntity.getId())
-                .userProfile(userProfileMapper.toUserProfileResponse(userProfileSubEntity.getUserProfile()))
                 .name(userProfileSubEntity.getName())
                 .phoneNumber(userProfileSubEntity.getPhoneNumber())
                 .address(addressResponse.getResult())
@@ -86,7 +84,6 @@ public class UserProfileSubService implements IUserProfileSubService {
         return userProfileSubEntities.stream()
                 .map(userProfileSubEntity -> UserProfileSubResponse.builder()
                         .id(userProfileSubEntity.getId())
-                        .userProfile(userProfileMapper.toUserProfileResponse(userProfileSubEntity.getUserProfile()))
                         .name(userProfileSubEntity.getName())
                         .phoneNumber(userProfileSubEntity.getPhoneNumber())
                         .address(addressRepository.findById(userProfileSubEntity.getAddressId()).getResult())

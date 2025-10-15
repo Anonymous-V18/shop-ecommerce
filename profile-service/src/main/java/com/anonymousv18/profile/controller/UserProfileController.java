@@ -22,8 +22,8 @@ public class UserProfileController {
     IUserProfileService userProfileService;
 
     @PutMapping("/profiles/update/{id}")
-    public ApiResponse<UserProfileResponse> updateUserProfile(@PathVariable("id") String id,
-                                                              @RequestBody UserProfileRequest userProfileRequest) {
+    public ApiResponse<UserProfileResponse> update(@PathVariable("id") String id,
+                                                   @RequestBody UserProfileRequest userProfileRequest) {
         UserProfileResponse response = userProfileService.update(id, userProfileRequest);
         return ApiResponse.<UserProfileResponse>builder()
                 .result(response)
@@ -31,7 +31,7 @@ public class UserProfileController {
     }
 
     @GetMapping("/profiles/get")
-    public ApiResponse<UserProfileResponse> getUserProfile(@RequestParam("id") String id) {
+    public ApiResponse<UserProfileResponse> findById(@RequestParam("id") String id) {
         UserProfileResponse response = userProfileService.findById(id);
         return ApiResponse.<UserProfileResponse>builder()
                 .result(response)
@@ -39,8 +39,8 @@ public class UserProfileController {
     }
 
     @GetMapping("/profiles/get-all")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ApiResponse<List<UserProfileResponse>> getAllUserProfiles() {
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public ApiResponse<List<UserProfileResponse>> findAll() {
         List<UserProfileResponse> response = userProfileService.getAll();
         return ApiResponse.<List<UserProfileResponse>>builder()
                 .result(response)

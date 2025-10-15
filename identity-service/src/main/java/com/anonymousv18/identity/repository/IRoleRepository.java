@@ -5,4 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface IRoleRepository extends JpaRepository<RoleEntity, String> {
     RoleEntity findOneByCode(String code);
+
+    boolean existsByCode(String code);
 }

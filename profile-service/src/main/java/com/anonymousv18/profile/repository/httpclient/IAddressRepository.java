@@ -23,6 +23,6 @@ public interface IAddressRepository {
     @DeleteMapping(value = "/internal/address/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     void delete(@PathVariable(name = "id") String id);
 
-    @GetMapping(value = "/internal/address/find-one", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/internal/address/get", produces = MediaType.APPLICATION_JSON_VALUE)
     ApiResponse<AddressResponse> findById(@RequestParam("id") String id);
 }

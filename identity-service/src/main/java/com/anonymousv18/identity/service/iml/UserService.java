@@ -17,6 +17,7 @@ import com.anonymousv18.identity.service.IUserService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Set;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -40,7 +42,7 @@ public class UserService implements IUserService {
     @Override
     public UserDTO createUser(SignupRequest signupRequest) {
 
-        boolean isUserExist = userRepository.existsByUsername(signupRequest.getUsername());
+        boolean isUserExist = userRepository.existsByUsernameOrEmail(signupRequest.getUsername(), signupRequest.getEmail());
         if (isUserExist) {
             throw new AppException(ErrorCode.USER_EXIST);
         }
@@ -61,8 +63,8 @@ public class UserService implements IUserService {
         NotificationEvent notificationEvent = NotificationEvent.builder()
                 .channel("MAIL")
                 .receiver(signupRequest.getEmail())
-                .body("Hello + " + signupRequest.getUsername())
-                .subject("Welcome to LeMarchéNoble Shop !")
+                .body("Hello " + signupRequest.getUsername())
+                .subject("Welcome to Le Marché Noble Shop !")
                 .build();
 
         kafkaTemplate.send("notification-delivery", notificationEvent);

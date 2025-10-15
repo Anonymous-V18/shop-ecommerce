@@ -36,6 +36,7 @@ public class UserProfileService implements IUserProfileService {
         UserProfileEntity userProfileEntity = userProfileRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.USER_PROFILE_NOT_FOUND));
         userProfileEntity = userProfileMapper.toEntity(userProfileEntity, userProfileRequest);
+        userProfileEntity = userProfileRepository.save(userProfileEntity);
         return userProfileMapper.toUserProfileResponse(userProfileEntity);
     }
 
@@ -49,7 +50,7 @@ public class UserProfileService implements IUserProfileService {
     public UserProfileResponse findById(String profileId) {
         return userProfileRepository.findById(profileId)
                 .map(userProfileMapper::toUserProfileResponse)
-                .orElseThrow(() -> new RuntimeException("Not found user !"));
+                .orElseThrow(() -> new AppException(ErrorCode.USER_PROFILE_NOT_FOUND));
     }
 
 }
